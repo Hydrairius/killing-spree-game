@@ -24,6 +24,10 @@
   margin-bottom: 1rem;
 }
 
+.game-header-spacer {
+  flex: 1;
+}
+
 .back-btn {
   padding: 0.5rem 1rem;
   background: var(--ks-bg-elevated);

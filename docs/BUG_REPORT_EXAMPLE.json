@@ -1,0 +1,42 @@
+{
+  "id": "550e8400-e29b-41d4-a716-446655440000",
+  "createdAt": "2025-02-23T14:30:00.000Z",
+  "title": "Card preview modal stuck open after targeting",
+  "description": "When I selected a weapon card and clicked on an opponent, the targeting UI closed but the card preview modal stayed open. Had to click again to close it.",
+  "reproSteps": "1. Play a weapon card that requires a target\n2. Click an opponent to target\n3. Observe: card preview modal remains visible",
+  "category": "UI",
+  "severity": "Medium",
+  "reproRate": "Often",
+  "buildVersion": "0.1.0",
+  "gameVersion": "0.1.0",
+  "commitHash": "abc123",
+  "platform": "web",
+  "device": "Win32",
+  "os": "Windows",
+  "locale": "en-US",
+  "timezone": "America/New_York",
+  "sessionId": "sess-xyz789",
+  "currentScene": "game",
+  "playerPosition": null,
+  "gameState": {
+    "roundNumber": 3,
+    "phase": "play",
+    "currentPlayerIndex": 0,
+    "winnerId": null,
+    "players": [
+      { "id": "p0", "name": "Player 1", "hp": 8, "maxHp": 10, "isEliminated": false, "handCount": 5 },
+      { "id": "p1", "name": "AI Bot", "hp": 6, "maxHp": 10, "isEliminated": false, "handCount": 3 }
+    ]
+  },
+  "fps": 60,
+  "memoryMb": 45,
+  "screenWidth": 1920,
+  "screenHeight": 1080,
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0",
+  "screenshotPath": null,
+  "logPath": null,
+  "playerContact": "tester@example.com",
+  "extraContext": {
+    "screenshotFailed": false
+  }
+}

@@ -8,6 +8,8 @@ import { getValidMoves } from '../ai/validMoves';
 import { getCardEffect } from '../data/cardDescriptions';
 import { getCardImageUrl, getCardBackUrl } from '../data/cardImages';
 import { DevLogPanel, type DevLogEntry } from './DevLogPanel';
+import { SettingsMenu } from './SettingsMenu';
+import { bugReportLogPush } from '../bugreport/logBuffer';
 import './GameBoard.css';
 
 interface GameBoardProps {
@@ -38,6 +40,7 @@ export function GameBoard({ state, onAction, onBackToLobby, controller }: GameBo
     const id = ++logIdRef.current;
     const time = new Date().toISOString().slice(11, 23);
     setDevLogEntries((prev) => [...prev.slice(-99), { id, time, msg, tag }]);
+    bugReportLogPush(msg, tag);
   }, []);
 
   const loggedOnAction = useCallback(
@@ -299,6 +302,16 @@ export function GameBoard({ state, onAction, onBackToLobby, controller }: GameBo
         </button>
         <span className="round">Round {state.roundNumber}</span>
         <span className="phase">{state.phase}</span>
+        <div className="game-header-spacer" />
+        <SettingsMenu
+          gameState={{
+            roundNumber: state.roundNumber,
+            phase: state.phase,
+            currentPlayerIndex: state.currentPlayerIndex,
+            winnerId: state.winnerId,
+            players: state.players,
+          }}
+        />
       </header>
 
       <div className="table-frame">

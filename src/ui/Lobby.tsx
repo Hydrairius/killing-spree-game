@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { SettingsMenu } from './SettingsMenu';
+import { HowToPlayModal } from './HowToPlayModal';
 import './Lobby.css';
 
 interface LobbyProps {
@@ -9,11 +11,22 @@ export function Lobby({ onStartGame }: LobbyProps) {
   const [playerCount, setPlayerCount] = useState(4);
   const [momentumBonus, setMomentumBonus] = useState(true);
   const [aiDifficulty, setAIDifficulty] = useState<'easy' | 'medium' | 'hard'>('medium');
+  const [showHowToPlay, setShowHowToPlay] = useState(false);
 
   return (
     <div className="lobby">
-      <h1>Killing Spree</h1>
+      <div className="lobby-header">
+        <h1>Killing Spree</h1>
+        <SettingsMenu />
+      </div>
       <p className="subtitle">Competitive PvP Card Game</p>
+      <button
+        type="button"
+        className="lobby-how-to-play"
+        onClick={() => setShowHowToPlay(true)}
+      >
+        How to Play
+      </button>
 
       <div className="lobby-options">
         <label>
@@ -56,6 +69,11 @@ export function Lobby({ onStartGame }: LobbyProps) {
       >
         Start Game
       </button>
+
+      {showHowToPlay && (
+        <HowToPlayModal onClose={() => setShowHowToPlay(false)} />
+      )}
     </div>
   );
 }
+

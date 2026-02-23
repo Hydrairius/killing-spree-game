@@ -1,0 +1,7 @@
+/// <reference types="vite/client" />
+
+interface ImportMetaEnv {
+  readonly VITE_APP_VERSION?: string;
+  readonly VITE_COMMIT_HASH?: string;
+  readonly VITE_BUGREPORT_WEBHOOK_URL?: string;
+}

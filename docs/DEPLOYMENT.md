@@ -18,7 +18,9 @@ Killing Spree is a static React SPA built with Vite. The build outputs a `dist/`
    npm run build
    ```
 
-2. **Optional but recommended:** Initialize git and push to GitHub. Most platforms offer free tiers with Git integration for automatic deploys.
+2. **Keep `package-lock.json` in sync:** After adding or changing dependencies, run `npm install` and commit the updated lock file. Cloudflare and other platforms use `npm ci`, which fails if the lock file is out of sync.
+
+3. **Optional but recommended:** Initialize git and push to GitHub. Most platforms offer free tiers with Git integration for automatic deploys.
 
 ---
 
@@ -40,19 +42,33 @@ Killing Spree is a static React SPA built with Vite. The build outputs a `dist/`
 ### Via Git (recommended)
 
 1. Push your code to GitHub.
-2. Go to [dash.cloudflare.com](https://dash.cloudflare.com) → Pages → Create a project → Connect to Git.
-3. Select repo, set:
+2. Go to [dash.cloudflare.com](https://dash.cloudflare.com) → **Workers & Pages** → **Create** → **Pages** (not Workers) → **Connect to Git**.
+3. **Important:** Create a **Pages** project, not a Workers project. Pages is for static sites; Workers is for serverless scripts.
+4. Select repo, then set:
    - **Build command:** `npm run build`
    - **Build output directory:** `dist`
-4. Deploy. Your site will be at `your-project.pages.dev`.
+   - **Deploy command:** Leave **empty**. Cloudflare Pages deploys the build output automatically. Do *not* use `npx wrangler deploy` — that is for Workers.
+5. Deploy. Your site will be at `your-project.pages.dev`.
 
 ### Via Wrangler CLI (manual)
 
-```bash
-npm install -g wrangler
-npm run build
-wrangler pages deploy dist --project-name=killing-spree
-```
+Requires a Cloudflare API token ([create one](https://dash.cloudflare.com/profile/api-tokens) with Pages: Edit permission).
+
+1. Copy `.env.example` to `.env` and add your token:
+   ```
+   CLOUDFLARE_API_TOKEN=your_actual_token_here
+   ```
+2. Run:
+   ```bash
+   npm run deploy
+   ```
+   Or manually:
+   ```bash
+   npm run build
+   npx dotenv-cli -e .env -- npx wrangler pages deploy dist --project-name=killing-spree-game
+   ```
+
+If the project doesn't exist, Wrangler will prompt to create it. If the API returns a 500 error when creating the project, create the Pages project manually in the dashboard first, then run the deploy command again.
 
 ---
 
@@ -112,34 +128,7 @@ vercel --prod
    });
    ```
 
-2. Install GitHub Pages deploy action:
-   ```bash
-   mkdir -p .github/workflows
-   ```
-   Create `.github/workflows/deploy.yml`:
-   ```yaml
-   name: Deploy to GitHub Pages
-   on:
-     push:
-       branches: [main]
-   jobs:
-     deploy:
-       runs-on: ubuntu-latest
-       steps:
-         - uses: actions/checkout@v4
-         - uses: actions/setup-node@v4
-           with:
-             node-version: '20'
-             cache: 'npm'
-         - run: npm ci
-         - run: npm run build
-         - uses: peaceiris/actions-gh-pages@v3
-           with:
-             github_token: ${{ secrets.GITHUB_TOKEN }}
-             publish_dir: ./dist
-   ```
-
-3. In repo Settings → Pages → Source: "GitHub Actions". After a push to `main`, the site deploys.
+2. The repo already includes `.github/workflows/deploy.yml` for GitHub Pages. In repo **Settings → Pages → Source**, choose **GitHub Actions**. After a push to `main`, the site deploys automatically.
 
 ---
 
@@ -171,13 +160,18 @@ All platforms above support custom domains on free tiers:
 | Assets 404 | Ensure `base` in `vite.config.ts` matches deployment path (e.g. `/repo-name/` for GitHub Pages). |
 | Build fails | Run `npm run build` locally; fix any TypeScript or dependency errors first. |
 | Blank page | Check browser console; often caused by wrong `base` path. |
+| **Cloudflare:** "Missing entry-point to Worker script" | You are in a Workers project, not Pages. Create a new **Pages** project (Connect to Git → Pages). Do not use a Deploy command for Git-based Pages. |
+| **Cloudflare:** "npm ci can only install when package.json and package-lock.json are in sync" | Run `npm install` locally, commit the updated `package-lock.json`, and push. |
+| **Cloudflare:** "CLOUDFLARE_API_TOKEN environment variable" required | For Wrangler CLI deploy: add your token to `.env` (see `.env.example`) or set `$env:CLOUDFLARE_API_TOKEN` before running. For Git-based Pages, you don't need a token. |
+| **Cloudflare:** API 500 when creating project | Create the Pages project manually in the dashboard first, then run `wrangler pages deploy` again. |
 
 ---
 
 ## Summary
 
 - **Easiest:** Netlify or Vercel with Git — connect repo and deploy.
-- **Most traffic-friendly:** Cloudflare Pages (unlimited bandwidth).
+- **Most traffic-friendly:** Cloudflare Pages (unlimited bandwidth). Use **Pages** (not Workers), leave Deploy command empty.
 - **Existing GitHub user:** GitHub Pages plus deploy workflow.
+- **Manual Cloudflare deploy:** Use `npm run deploy` (requires `.env` with `CLOUDFLARE_API_TOKEN`).
 
-All configs in this repo (`netlify.toml`, `vercel.json`) are ready to use.
+All configs in this repo (`netlify.toml`, `vercel.json`, `.env.example`) are ready to use.

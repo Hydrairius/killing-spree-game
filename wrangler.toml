@@ -1,0 +1,15 @@
+# Cloudflare Pages project config
+# Required: run migrations and set database_id before first deploy
+# See docs/CLOUDFLARE_BUGREPORTS_SETUP.md
+
+name = "killing-spree-game"
+pages_build_output_dir = "./dist"
+compatibility_date = "2024-12-01"
+
+# D1 binding for bug reports
+# Create DB: npx wrangler d1 create killing-spree-bugreports
+# Then replace DATABASE_ID below with the UUID from that command
+[[d1_databases]]
+binding = "DB"
+database_name = "killing-spree-bugreports"
+database_id = "33c51b99-e012-4a0f-8486-31c324c16741"

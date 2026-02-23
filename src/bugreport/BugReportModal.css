@@ -1,0 +1,155 @@
+.bugreport-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 1rem;
+}
+
+.bugreport-modal {
+  background: var(--ks-bg-modal);
+  border: 1px solid var(--ks-neutral-border);
+  border-radius: var(--ks-radius-md);
+  max-width: 540px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+.bugreport-title {
+  margin: 0;
+  padding: 1rem 1.25rem;
+  font-size: 1.25rem;
+  border-bottom: 1px solid var(--ks-neutral-border);
+}
+
+.bugreport-form {
+  padding: 1.25rem;
+}
+
+.bugreport-field {
+  margin-bottom: 1rem;
+}
+
+.bugreport-field label {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 0.875rem;
+  color: var(--ks-text-secondary);
+}
+
+.bugreport-field .required {
+  color: var(--ks-accent);
+}
+
+.bugreport-field input,
+.bugreport-field select,
+.bugreport-field textarea {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  background: var(--ks-bg-elevated);
+  border: 1px solid var(--ks-neutral-border);
+  border-radius: var(--ks-radius-sm);
+  color: var(--ks-text-primary);
+  font-size: 0.9rem;
+}
+
+.bugreport-field input:focus,
+.bugreport-field select:focus,
+.bugreport-field textarea:focus {
+  outline: none;
+  border-color: var(--ks-accent-active);
+}
+
+.bugreport-field textarea {
+  resize: vertical;
+  min-height: 4rem;
+}
+
+.bugreport-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.bugreport-checkboxes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.bugreport-check {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.bugreport-check input {
+  accent-color: var(--ks-accent);
+}
+
+.bugreport-error {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.8rem;
+  color: var(--ks-accent);
+}
+
+.bugreport-error-block {
+  margin-bottom: 1rem;
+  padding: 0.5rem 0.75rem;
+  background: rgba(161, 18, 18, 0.15);
+  border: 1px solid var(--ks-accent);
+  border-radius: var(--ks-radius-sm);
+  font-size: 0.875rem;
+  color: var(--ks-accent-active);
+}
+
+.bugreport-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+.bugreport-btn {
+  padding: 0.5rem 1rem;
+  border-radius: var(--ks-radius-md);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background var(--ks-ease-micro), border-color var(--ks-ease-micro);
+}
+
+.bugreport-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.bugreport-btn-secondary {
+  background: var(--ks-bg-elevated);
+  border: 1px solid var(--ks-neutral-border);
+  color: var(--ks-text-primary);
+}
+
+.bugreport-btn-secondary:hover:not(:disabled) {
+  border-color: var(--ks-accent-active);
+}
+
+.bugreport-btn-primary {
+  background: var(--ks-accent);
+  border: 1px solid var(--ks-accent);
+  color: var(--ks-text-primary);
+}
+
+.bugreport-btn-primary:hover:not(:disabled) {
+  background: var(--ks-accent-active);
+  border-color: var(--ks-accent-active);
+}

@@ -8,9 +8,16 @@
   border: 1px solid var(--ks-neutral-border);
 }
 
-.lobby h1 {
+.lobby-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.25rem;
+}
+
+.lobby-header h1 {
   font-size: 2.5rem;
-  margin: 0 0 0.25rem;
+  margin: 0;
   color: var(--ks-accent-active);
   font-family: 'Oswald', sans-serif;
   text-transform: uppercase;
@@ -18,7 +25,23 @@
 
 .subtitle {
   color: var(--ks-text-secondary);
-  margin-bottom: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.lobby-how-to-play {
+  background: none;
+  border: none;
+  color: var(--ks-accent);
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0.25rem 0;
+  margin-bottom: 1.5rem;
+  transition: color var(--ks-ease-micro);
+}
+
+.lobby-how-to-play:hover {
+  color: var(--ks-accent-active);
 }
 
 .lobby-options {

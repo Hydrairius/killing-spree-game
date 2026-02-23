@@ -26,6 +26,7 @@ How the game works from a design perspective.
 
 | Document | Description |
 |----------|-------------|
+| [HOW_TO_PLAY.md](HOW_TO_PLAY.md) | **Player-facing tutorial:** Quick Start, Turn Flow, glossary, card/effect reference, FAQ, tips. |
 | [TURN_FLOW.md](TURN_FLOW.md) | Turn lifecycle: draw → play → end. Tick order for status effects, protective turns, skipNextTurn. |
 | [PLAYER_HEALTH_AND_ELIMINATION.md](PLAYER_HEALTH_AND_ELIMINATION.md) | HP, damage paths, elimination at 0 HP. DoT stacking. Which hidden cards trigger on DoT vs weapon attacks. |
 
@@ -78,6 +79,9 @@ Debug tools, deployment, and recent changes.
 | [DEPLOYMENT.md](DEPLOYMENT.md) | Deploy to the web for free (Netlify, Vercel, Cloudflare Pages, GitHub Pages). |
 | [DEVLOG.md](DEVLOG.md) | DevLog panel: trace actions, state transitions, AI scheduling, combat events. |
 | [RECENT_CHANGES.md](RECENT_CHANGES.md) | Changelog: Protective Bubble, Devil's Blessing in draw phase, Assault Rifle split, etc. |
+| [QA_BUG_REPORT_GUIDE.md](QA_BUG_REPORT_GUIDE.md) | How QA testers submit bug reports (F8, settings menu, form fields). |
+| [CLOUDFLARE_BUGREPORTS_SETUP.md](CLOUDFLARE_BUGREPORTS_SETUP.md) | Cloudflare D1: store bug reports in a database. |
+| [src/bugreport/README.md](../src/bugreport/README.md) | Bug Report system: setup, config, webhook, storage. |
 
 ---
 
