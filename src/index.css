@@ -1,0 +1,14 @@
+@import './styles/theme.css';
+
+:root {
+  font-family: 'Inter', system-ui, sans-serif;
+  line-height: 1.5;
+}
+
+/* Typography — condensed tactical for headers */
+h1, h2, .ks-heading {
+  font-family: 'Oswald', 'Inter', system-ui, sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}

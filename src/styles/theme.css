@@ -1,0 +1,75 @@
+/**
+ * Killing Spree — Flat Esports UI System
+ * Visual anchor: card back design (red-on-black, symmetrical, no glow)
+ * Import in index.css: @import './styles/theme.css';
+ */
+
+:root {
+  /* ─── Primary Background ─── */
+  --ks-bg-base: #111111;
+  --ks-bg-base-end: #111111;
+  --ks-bg-elevated: #1A1A1A;
+  --ks-bg-panel: #141414;
+  --ks-bg-modal: #141414;
+  --ks-bg-overlay: #0E0E14;
+
+  /* Arena (navy-black) */
+  --ks-arena-bg: #0E0E14;
+
+  /* ─── Primary Accent (Kill Red) — single accent only ─── */
+  --ks-accent: #A11212;
+  --ks-accent-active: #FF2E2E;
+  --ks-accent-depth: #7A0E0E;
+
+  /* Semantic aliases (all map to red) */
+  --ks-accent-attack: var(--ks-accent);
+  --ks-accent-trap: var(--ks-accent);
+  --ks-accent-defense: var(--ks-accent);
+  --ks-accent-special: var(--ks-accent);
+  --ks-accent-neutral: var(--ks-accent);
+
+  /* Status aliases (red-only system) */
+  --ks-status-danger: var(--ks-accent);
+  --ks-status-success: var(--ks-accent);
+  --ks-status-warning: var(--ks-accent);
+  --ks-status-disabled: var(--ks-neutral-disabled);
+
+  /* ─── Neutral UI ─── */
+  --ks-neutral-border: #3A3A3A;
+  --ks-neutral-rim: #4A4A4A;
+  --ks-neutral-disabled: #2A2A2A;
+
+  /* Border aliases */
+  --ks-border-default: var(--ks-neutral-border);
+  --ks-border-subtle: var(--ks-neutral-disabled);
+  --ks-border-focus: var(--ks-accent-active);
+
+  /* ─── Text ─── */
+  --ks-text-primary: #FFFFFF;
+  --ks-text-secondary: #B0B0B0;
+  --ks-text-muted: #6A6A6A;
+  --ks-text-inverted: #111111;
+
+  /* ─── Border Radius (2–4px max) ─── */
+  --ks-radius-sm: 2px;
+  --ks-radius-md: 4px;
+
+  /* ─── Animation Timings ─── */
+  --ks-ease-micro: 100ms;
+  --ks-ease-flip: 200ms;
+  --ks-ease-major: 250ms;
+  --ks-ease-curve: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+  /* ─── Semantic aliases ─── */
+  --bg-base: var(--ks-bg-base);
+  --bg-elevated: var(--ks-bg-elevated);
+  --bg-panel: var(--ks-bg-panel);
+  --bg-overlay: var(--ks-bg-overlay);
+  --text-primary: var(--ks-text-primary);
+  --text-secondary: var(--ks-text-secondary);
+  --text-muted: var(--ks-text-muted);
+  --text-inverted: var(--ks-text-inverted);
+  --border-default: var(--ks-neutral-border);
+  --border-subtle: var(--ks-neutral-disabled);
+  --border-focus: var(--ks-accent-active);
+}

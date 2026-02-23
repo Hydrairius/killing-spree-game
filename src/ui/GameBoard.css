@@ -1,0 +1,1174 @@
+.game-board {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  background: var(--ks-arena-bg);
+}
+
+/* Arena frame around the table */
+.table-frame {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  background: var(--ks-bg-panel);
+  border-radius: var(--ks-radius-md);
+  border: 1px solid var(--ks-neutral-border);
+}
+
+.game-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.back-btn {
+  padding: 0.5rem 1rem;
+  background: var(--ks-bg-elevated);
+  color: var(--ks-text-primary);
+  border: 1px solid var(--ks-neutral-border);
+  border-radius: var(--ks-radius-md);
+  cursor: pointer;
+  transition: border-color var(--ks-ease-micro) var(--ks-ease-curve),
+    transform var(--ks-ease-micro) var(--ks-ease-curve);
+}
+
+.back-btn:hover {
+  border-color: var(--ks-accent-active);
+  transform: scale(1.03);
+}
+
+.back-btn:active {
+  background: var(--ks-accent);
+  border-color: var(--ks-accent);
+  color: var(--ks-text-primary);
+}
+
+.round {
+  font-weight: bold;
+  color: var(--ks-accent-attack);
+}
+
+.phase {
+  color: var(--ks-text-muted);
+}
+
+/* Table surface — arena floor, subtle circular motif */
+.table-surface {
+  flex: 1;
+  position: relative;
+  min-height: 480px;
+  background: 
+    radial-gradient(circle at 50% 50%, transparent 0%, transparent 40%, rgba(161, 18, 18, 0.03) 70%, transparent 100%),
+    repeating-radial-gradient(circle at 50% 50%, transparent 0, transparent 2px, rgba(161, 18, 18, 0.04) 2px, rgba(161, 18, 18, 0.04) 3px) 50% 50% / 48px 48px,
+    var(--ks-arena-bg);
+  border-radius: 50% / 28%;
+  border: 1px solid var(--ks-neutral-border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem;
+}
+
+/* Opponents around the table - top half (UX: cap total width so no zone dominates) */
+.table-opponents {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 560px;
+  padding: 0 0.5rem;
+  gap: 0.75rem;
+}
+
+.table-opponents-1 .table-top {
+  /* 2 players: single opponent centered across */
+  flex: 0 1 auto;
+}
+
+.table-opponents-2 {
+  /* 3 players: left and right */
+  padding: 0 2rem;
+}
+
+.table-opponents-3 {
+  /* 4 players: left, top, right */
+}
+
+.table-side {
+  flex: 1 1 0;
+  display: flex;
+  justify-content: center;
+  min-width: 0;
+  max-width: 190px;
+}
+
+.table-side.table-left {
+  justify-content: flex-end;
+}
+
+.table-side.table-right {
+  justify-content: flex-start;
+}
+
+.table-side.table-top {
+  justify-content: center;
+}
+
+/* Opponent seat — flat, sharp */
+.opponent-seat {
+  padding: 0.75rem 1rem;
+  background: var(--ks-bg-elevated);
+  border-radius: var(--ks-radius-md);
+  border: 1px solid var(--ks-neutral-border);
+  min-width: 120px;
+  max-width: 180px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  text-align: center;
+  transition: border-color var(--ks-ease-micro) var(--ks-ease-curve),
+    transform var(--ks-ease-micro) var(--ks-ease-curve);
+}
+
+.opponent-seat.current {
+  border-color: var(--ks-accent-active);
+  border-width: 2px;
+}
+
+.opponent-seat.eliminated {
+  opacity: 0.5;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.opponent-seat.targetable {
+  cursor: pointer;
+  border-color: var(--ks-accent);
+}
+
+.opponent-seat.targetable:hover {
+  transform: scale(1.03);
+  border-color: var(--ks-accent-active);
+  border-width: 2px;
+}
+
+.opponent-seat.selected-target {
+  border-color: var(--ks-accent-active);
+  border-width: 2px;
+  background: var(--ks-bg-panel);
+}
+
+/* Damage flash — flat red impact, 100–150ms */
+.opponent-seat.damage-flash,
+.player-info.damage-flash {
+  animation: damage-flash 0.12s var(--ks-ease-curve) forwards;
+}
+
+@keyframes damage-flash {
+  0% {
+    background: rgba(161, 18, 18, 0.5);
+    border-color: var(--ks-accent-active);
+  }
+  100% {
+    background: var(--ks-bg-elevated);
+    border-color: var(--ks-neutral-border);
+  }
+}
+
+.player-info.damage-flash {
+  animation: damage-flash-player 0.12s var(--ks-ease-curve) forwards;
+}
+
+@keyframes damage-flash-player {
+  0% { background: rgba(161, 18, 18, 0.4); }
+  100% { background: transparent; }
+}
+
+.damage-number {
+  color: var(--ks-accent-attack);
+  font-weight: bold;
+  margin-left: 0.5rem;
+  animation: damage-pop 0.5s ease-out;
+}
+
+@keyframes damage-pop {
+  0% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Defensive effect — flat red border flash */
+.opponent-seat.defensive-effect,
+.player-info.defensive-effect {
+  animation: defensive-flash 0.25s var(--ks-ease-curve) forwards;
+}
+
+@keyframes defensive-flash {
+  0% {
+    border-color: var(--ks-accent);
+    background: rgba(161, 18, 18, 0.1);
+  }
+  100% {
+    border-color: var(--ks-neutral-border);
+    background: var(--ks-bg-elevated);
+  }
+}
+
+.combat-event {
+  padding: 0.4rem 0.75rem;
+  border-radius: var(--ks-radius-md);
+  font-size: 0.9rem;
+  animation: combat-event-in var(--ks-ease-major) var(--ks-ease-curve);
+}
+
+.combat-blocked,
+.combat-reduced,
+.combat-missed {
+  background: rgba(161, 18, 18, 0.15);
+  border: 1px solid var(--ks-accent);
+  color: var(--ks-accent-active);
+}
+
+.combat-spike-trap {
+  background: rgba(161, 18, 18, 0.15);
+  border: 1px solid var(--ks-accent);
+  color: var(--ks-accent-active);
+}
+
+.shield-icon {
+  font-size: 1.1rem;
+}
+
+/* Trap reveal overlay - Yu-Gi-Oh style flip */
+.trap-reveal-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--ks-bg-overlay);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1100;
+  cursor: pointer;
+  animation: trap-overlay-in 0.3s ease-out;
+}
+
+@keyframes trap-overlay-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes trap-content-pop {
+  0% { transform: scale(0.95); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.trap-reveal-content {
+  background: var(--ks-bg-panel);
+  border: 2px solid var(--ks-accent);
+  border-radius: var(--ks-radius-md);
+  padding: 2rem;
+  max-width: 400px;
+  text-align: center;
+  animation: trap-content-pop 0.5s ease-out;
+}
+
+.trap-reveal-header {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--ks-accent-active);
+  margin-bottom: 1rem;
+}
+
+.trap-reveal-card-flip {
+  perspective: 800px;
+  margin: 1rem auto;
+}
+
+.trap-card {
+  width: 120px;
+  height: 168px;
+  margin: 0 auto;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  border: 2px solid var(--ks-border-default);
+  animation: trap-card-flip var(--ks-ease-flip) var(--ks-ease-curve);
+  transform-style: preserve-3d;
+}
+
+@keyframes trap-card-flip {
+  0% { transform: rotateY(90deg); opacity: 0.5; }
+  100% { transform: rotateY(0deg); opacity: 1; }
+}
+
+.trap-card .card-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.trap-card-name {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--ks-bg-overlay);
+  color: var(--ks-text-primary);
+  font-size: 0.75rem;
+  padding: 0.25rem;
+  font-weight: bold;
+}
+
+.trap-reveal-effect {
+  color: var(--ks-text-secondary);
+  font-size: 1rem;
+  margin: 1rem 0;
+  line-height: 1.4;
+}
+
+.trap-reveal-result {
+  color: var(--ks-accent-trap);
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.trap-reveal-dismiss {
+  padding: 0.5rem 1.5rem;
+  background: var(--ks-bg-elevated);
+  border: 2px solid var(--ks-accent);
+  border-radius: var(--ks-radius-md);
+  color: var(--ks-text-primary);
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.trap-reveal-dismiss:hover {
+  border-color: var(--ks-accent-active);
+}
+.trap-reveal-dismiss:active {
+  background: var(--ks-accent);
+  border-color: var(--ks-accent);
+}
+
+/* Hidden card - mystery reveal */
+.last-played-hidden {
+  animation: mystery-reveal 0.6s ease-out;
+}
+
+.mystery-card {
+  color: var(--ks-accent-neutral);
+  font-style: italic;
+}
+
+@keyframes mystery-reveal {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes combat-event-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+.opponent-seat .name {
+  display: block;
+  font-weight: bold;
+}
+
+.opponent-seat .playstyle-badge {
+  display: inline-block;
+  margin-left: 0.35rem;
+  padding: 0.1rem 0.35rem;
+  font-size: 0.65rem;
+  font-weight: normal;
+  text-transform: capitalize;
+  color: var(--ks-text-muted);
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+}
+
+.opponent-seat .hp {
+  color: var(--ks-accent-attack);
+  font-size: 0.8rem;
+}
+
+.opponent-seat .cards {
+  color: var(--ks-text-muted);
+  font-size: 0.9rem;
+}
+
+.opponent-seat .eliminated-label {
+  color: var(--ks-status-danger);
+  font-size: 0.9rem;
+}
+
+/* Player table cards: hidden card + protection badges */
+.player-table-cards {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.player-table-cards.compact {
+  margin-top: 0.35rem;
+  gap: 0.35rem;
+}
+
+.hidden-card-slot {
+  flex-shrink: 0;
+}
+
+.hidden-card-slot.hidden-card-peekable {
+  cursor: pointer;
+}
+
+.hidden-card-slot.hidden-card-peekable:hover .hidden-card-back {
+  transform: scale(1.03);
+}
+
+.hidden-card-back {
+  width: 45px;
+  height: 60px;
+  border-radius: var(--ks-radius-md);
+  background: var(--ks-bg-elevated);
+  /* No border — card_back.png has its own border */
+  transition: transform var(--ks-ease-micro) var(--ks-ease-curve);
+  position: relative;
+  overflow: hidden;
+}
+
+.hidden-card-back .card-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Full image visible — card_back.png has its own border */
+}
+
+.player-table-cards.compact .hidden-card-back {
+  width: 36px;
+  height: 48px;
+}
+
+.hidden-card-back:hover {
+  transform: scale(1.05);
+}
+
+.protection-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.protection-badge {
+  font-size: 0.7rem;
+  padding: 0.2rem 0.45rem;
+  border-radius: var(--ks-radius-md);
+  background: rgba(161,18,18,0.2);
+  border: 1px solid var(--ks-accent);
+  color: var(--ks-accent-active);
+  white-space: nowrap;
+}
+
+.player-table-cards.compact .protection-badge {
+  font-size: 0.65rem;
+  padding: 0.15rem 0.35rem;
+}
+
+.protection-badge.kevlar,
+.protection-badge.chainmail,
+.protection-badge.chestplate,
+.protection-badge.mecha,
+.protection-badge.final-spree {
+  background: rgba(161,18,18,0.2);
+  border-color: var(--ks-accent);
+  color: var(--ks-accent-active);
+}
+
+/* DoT status effects: Molotov, Dynamite, Poisonous Apple */
+.status-effect-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.status-effect-badge {
+  font-size: 0.7rem;
+  padding: 0.2rem 0.45rem;
+  border-radius: 6px;
+  white-space: nowrap;
+  border: 1px solid;
+}
+
+.status-effect-badge.status-effect-molotov,
+.status-effect-badge.status-effect-dynamite,
+.status-effect-badge.status-effect-poisonous_apple,
+.status-effect-badge.status-effect-chainsaw {
+  background: rgba(161,18,18,0.2);
+  border-color: var(--ks-accent);
+  color: var(--ks-accent-active);
+}
+
+.player-table-cards.compact .status-effect-badge {
+  font-size: 0.65rem;
+  padding: 0.15rem 0.35rem;
+}
+
+.hidden-badge {
+  margin-left: 0.5rem;
+  font-size: 1.2rem;
+}
+
+/* Center - draw/discard piles */
+.table-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.center-piles {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-end;
+}
+
+.pile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pile-stack {
+  position: relative;
+  width: 60px;
+  height: 82px;
+}
+
+.pile-card {
+  width: 60px;
+  height: 82px;
+  border-radius: 6px;
+  border: 2px solid var(--ks-border-default);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.pile-card .card-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.pile-card-back {
+  background: var(--ks-bg-elevated);
+  border: none; /* card_back.png has its own border */
+}
+
+.pile-card-back .card-img {
+  object-fit: contain; /* Full image visible — no cropping */
+}
+
+.pile-card-face {
+  background: var(--ks-bg-elevated);
+  font-size: 0.65rem;
+  font-weight: bold;
+  text-align: center;
+  padding: 0.25rem;
+}
+
+.pile-card-face .card-name {
+  position: relative;
+  z-index: 1;
+  text-shadow: 0 0 2px var(--ks-bg-overlay);
+}
+
+.pile-card-face.card-weapon {
+  border-left: 4px solid var(--ks-accent-attack);
+}
+
+.pile-card-face.card-utility {
+  border-left: 4px solid var(--ks-accent-defense);
+}
+
+.pile-card-face.card-special {
+  border-left: 4px solid var(--ks-accent-special);
+}
+
+.pile-card-face.card-hidden {
+  border-left: 4px solid var(--ks-accent-trap);
+}
+
+.pile-count {
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--ks-bg-overlay);
+  color: var(--ks-text-primary);
+  font-size: 0.75rem;
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+}
+
+.last-played {
+  color: var(--ks-text-primary);
+  font-size: 0.9rem;
+}
+
+.last-played-card {
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.last-played-card.card-weapon,
+.last-played-card.card-utility,
+.last-played-card.card-special,
+.last-played-card.card-hidden {
+  background: rgba(161,18,18,0.2);
+  border: 1px solid var(--ks-accent);
+}
+
+.waiting {
+  color: var(--ks-accent-attack);
+  font-style: italic;
+}
+
+.targeting-prompt {
+  color: var(--ks-accent-trap);
+  font-size: 0.9rem;
+}
+
+.targeting-prompt strong {
+  color: var(--ks-text-primary);
+}
+
+/* Your seat - bottom of the table (UX: cap so hand doesn't dominate) */
+.table-player {
+  width: 100%;
+  max-width: 680px;
+  padding: 0.75rem 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.player-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1.2rem;
+}
+
+.player-info.current {
+  color: var(--ks-accent-attack);
+  font-weight: bold;
+}
+
+/* Player avatar placeholder - replace with img when custom images available */
+.player-avatar {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  min-height: 48px;
+  border-radius: 50%;
+  background: var(--ks-bg-elevated);
+  border: 1px solid var(--ks-neutral-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.player-avatar::before {
+  content: '👤';
+  font-size: 1.5rem;
+  opacity: 0.7;
+}
+
+.player-avatar-human {
+  border-color: var(--ks-accent-active);
+  background: var(--ks-bg-elevated);
+}
+
+.player-avatar-human::before {
+  content: '🧑';
+}
+
+.player-avatar-ai {
+  border-color: var(--ks-neutral-border);
+  background: var(--ks-bg-elevated);
+}
+
+.player-avatar-ai::before {
+  content: '🤖';
+}
+
+.player-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+/* Health bar */
+.player-health {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.health-bar {
+  width: 120px;
+  height: 10px;
+  background: var(--ks-neutral-disabled);
+  border-radius: var(--ks-radius-md);
+  overflow: hidden;
+  border: 1px solid var(--ks-neutral-border);
+}
+
+.health-bar-fill {
+  height: 100%;
+  background: var(--ks-accent);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.player-info .health-bar {
+  width: 120px;
+  height: 10px;
+}
+
+.opponent-seat .player-health {
+  width: 100%;
+}
+
+.opponent-seat .health-bar {
+  flex: 1;
+  min-width: 50px;
+  max-width: 90px;
+  height: 8px;
+}
+
+.opponent-seat-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  flex: 1;
+}
+
+.opponent-seat .player-avatar {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  min-height: 40px;
+}
+
+.opponent-seat .player-avatar::before {
+  font-size: 1.1rem;
+}
+
+.opponent-seat.eliminated .player-avatar {
+  opacity: 0.6;
+  filter: grayscale(0.8);
+}
+
+.hand {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  min-height: 100px;
+}
+
+/* Fan layout — cards radiate like holding in hand */
+.hand-fan {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  min-height: 140px;
+  padding-bottom: 0;
+}
+
+.hand-fan-human .card-fan-item {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  margin-left: -41px; /* half of 82px card width */
+  transform-origin: bottom center;
+  transform: translateX(var(--fan-tx, 0)) rotate(var(--fan-rot, 0));
+  transition: transform var(--ks-ease-flip) var(--ks-ease-curve);
+}
+
+.hand-fan-human .card-fan-item:hover {
+  transform: translateX(var(--fan-tx, 0)) translateY(-12px) rotate(var(--fan-rot, 0)) scale(1.05);
+  z-index: 100 !important; /* override inline z-index so hovered card is always on top */
+}
+
+/* Opponent hand fan — face-down card backs */
+.opponent-hand-fan {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  height: 44px;
+  margin-top: 0.2rem;
+}
+
+.opponent-card-back {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 32px;
+  height: 44px;
+  margin-left: -16px;
+  transform-origin: bottom center;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid var(--ks-neutral-border);
+  background: var(--ks-bg-elevated);
+}
+
+.opponent-card-back .card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.opponent-hand-count {
+  position: absolute;
+  bottom: -4px;
+  right: -6px;
+  font-size: 0.65rem;
+  color: var(--ks-text-muted);
+}
+
+/* Cards (UX: slightly smaller to fit 7 in row without overflow) */
+.card {
+  width: 82px;
+  height: 110px;
+  padding: 0.5rem;
+  background: var(--ks-bg-elevated);
+  border: 1px solid var(--ks-neutral-border);
+  border-radius: var(--ks-radius-md);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform var(--ks-ease-flip) var(--ks-ease-curve),
+    border-color var(--ks-ease-micro) var(--ks-ease-curve);
+  position: relative;
+  overflow: hidden;
+}
+
+.card .card-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.card .card-name,
+.card .card-damage {
+  position: relative;
+  z-index: 1;
+}
+
+.card:hover {
+  transform: scale(1.03) translateY(-4px);
+  border-color: var(--ks-accent-active);
+}
+
+.card.card-selected {
+  border-color: var(--ks-accent-active);
+  border-width: 2px;
+  transform: scale(1.03) translateY(-4px);
+}
+
+.card.card-unplayable {
+  opacity: 0.6;
+  filter: saturate(0.5);
+}
+
+.card-weapon {
+  border-left: 4px solid var(--ks-accent-attack);
+}
+
+.card-utility {
+  border-left: 4px solid var(--ks-accent-defense);
+}
+
+.card-special {
+  border-left: 4px solid var(--ks-accent-special);
+}
+
+.card-hidden {
+  border-left: 4px solid var(--ks-accent-trap);
+}
+
+.card-name {
+  font-size: 0.75rem;
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+.card-damage {
+  font-size: 0.7rem;
+  color: var(--ks-accent-attack);
+}
+
+/* Draw-in animation: card fades and scales in when drawn */
+@keyframes card-draw-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.card.card-draw-in {
+  animation: card-draw-in 0.4s var(--ks-ease-curve) forwards;
+}
+
+.card.card-draw-in .card-img,
+.card.card-draw-in .card-name,
+.card.card-draw-in .card-damage {
+  animation: none;
+}
+
+/* Discard pile top card update */
+@keyframes pile-card-update {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.pile-card-face.pile-card-updated {
+  animation: pile-card-update 0.35s var(--ks-ease-curve) forwards;
+}
+
+/* Card preview modal */
+.card-preview-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--ks-bg-overlay);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.card-preview-modal {
+  background: var(--ks-bg-panel);
+  border: 1px solid var(--ks-neutral-border);
+  border-radius: var(--ks-radius-md);
+  padding: 1.5rem;
+  max-width: 360px;
+  width: 90%;
+}
+
+.card-preview-content {
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.card-preview-content.card-weapon {
+  border-left: 4px solid var(--ks-accent-attack);
+}
+
+.card-preview-content.card-utility {
+  border-left: 4px solid var(--ks-accent-defense);
+}
+
+.card-preview-content.card-special {
+  border-left: 4px solid var(--ks-accent-special);
+}
+
+.card-preview-content.card-hidden {
+  border-left: 4px solid var(--ks-accent-trap);
+}
+
+.card-preview-name {
+  margin: 0 0 0.5rem;
+  font-size: 1.5rem;
+  color: var(--ks-text-primary);
+}
+
+.card-preview-type {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--ks-text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.card-preview-damage {
+  display: block;
+  color: var(--ks-accent-attack);
+  font-size: 0.9rem;
+  margin-bottom: 0.75rem;
+}
+
+.card-preview-effect {
+  color: var(--ks-text-secondary);
+  font-size: 1rem;
+  line-height: 1.5;
+  margin: 0.75rem 0 0;
+}
+
+.card-preview-subtext {
+  color: var(--ks-text-muted);
+  font-size: 0.9rem;
+  font-style: italic;
+  margin: 0.5rem 0 0;
+}
+
+.card-preview-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+}
+
+.card-preview-actions button {
+  padding: 0.5rem 1.25rem;
+  background: var(--ks-bg-elevated);
+  color: var(--ks-text-primary);
+  border: 1px solid var(--ks-border-default);
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.card-preview-actions button:hover:not(:disabled) {
+  background: var(--ks-bg-modal);
+}
+
+.card-preview-actions button:last-child {
+  background: var(--ks-bg-elevated);
+  border-color: var(--ks-accent);
+}
+.card-preview-actions button:last-child:hover:not(:disabled) {
+  border-color: var(--ks-accent-active);
+  background: var(--ks-accent);
+  color: var(--ks-text-primary);
+}
+.card-preview-actions button:last-child:active:not(:disabled) {
+  background: var(--ks-accent);
+  border-color: var(--ks-accent);
+}
+
+/* Actions */
+.actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.actions button {
+  padding: 0.6rem 1.25rem;
+  background: var(--ks-bg-elevated);
+  color: var(--ks-text-primary);
+  border: 1px solid var(--ks-neutral-border);
+  border-radius: var(--ks-radius-md);
+  cursor: pointer;
+  transition: border-color var(--ks-ease-micro) var(--ks-ease-curve),
+    transform var(--ks-ease-micro) var(--ks-ease-curve);
+}
+.actions button:hover {
+  border-color: var(--ks-accent-active);
+  transform: scale(1.03);
+}
+.actions button:active {
+  background: var(--ks-accent);
+  border-color: var(--ks-accent);
+}
+
+/* Game over */
+.game-over {
+  max-width: 400px;
+  margin: 4rem auto;
+  text-align: center;
+  padding: 2rem;
+  background: var(--ks-bg-panel);
+  border-radius: var(--ks-radius-md);
+  border: 1px solid var(--ks-neutral-border);
+}
+
+.game-over h2 {
+  color: var(--ks-accent-attack);
+  margin-bottom: 1rem;
+}
+
+.game-over .winner {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.game-over .reason {
+  color: var(--ks-text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+.game-over button {
+  padding: 0.75rem 2rem;
+  background: var(--ks-accent-attack);
+  color: var(--ks-text-inverted);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.game-over button:hover {
+  border-color: var(--ks-accent-active);
+}
+.game-over button:active {
+  background: var(--ks-accent-depth);
+}

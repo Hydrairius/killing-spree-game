@@ -1,0 +1,30 @@
+{
+  "name": "Killing Spree",
+  "version": "2.0",
+  "style": "flat-esports",
+  "backgrounds": {
+    "base": "#111111",
+    "elevated": "#1A1A1A",
+    "panel": "#141414",
+    "overlay": "#0E0E14",
+    "arena": "#0E0E14"
+  },
+  "accent": {
+    "core": "#A11212",
+    "active": "#FF2E2E",
+    "depth": "#7A0E0E"
+  },
+  "neutrals": {
+    "border": "#3A3A3A",
+    "rim": "#4A4A4A",
+    "disabled": "#2A2A2A"
+  },
+  "text": {
+    "primary": "#FFFFFF",
+    "secondary": "#B0B0B0",
+    "muted": "#6A6A6A",
+    "inverted": "#111111"
+  },
+  "radius": { "sm": 2, "md": 4 },
+  "timing": { "micro": 100, "flip": 200, "major": 250 }
+}

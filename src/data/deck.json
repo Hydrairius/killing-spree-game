@@ -1,0 +1,53 @@
+{
+  "weapons": [
+    { "id": "katana", "name": "Katana", "damageType": "melee", "baseDamage": 3, "quantity": 1 },
+    { "id": "combat_knife", "name": "Combat Knife", "damageType": "melee", "baseDamage": 2, "quantity": 1 },
+    { "id": "baseball_bat", "name": "Baseball Bat", "damageType": "melee", "baseDamage": 3, "quantity": 1 },
+    { "id": "morning_star", "name": "Morning Star", "damageType": "melee", "baseDamage": 3, "quantity": 1 },
+    { "id": "chainsaw", "name": "Chainsaw", "damageType": "melee", "baseDamage": 3, "quantity": 2 },
+    { "id": "glock", "name": "Glock", "damageType": "ranged", "baseDamage": 2, "quantity": 1 },
+    { "id": "revolver", "name": "Revolver", "damageType": "ranged", "baseDamage": 3, "quantity": 1 },
+    { "id": "44_magnum", "name": "44 Magnum", "damageType": "ranged", "baseDamage": 3, "quantity": 1 },
+    { "id": "crossbow", "name": "Crossbow", "damageType": "ranged", "baseDamage": 4, "quantity": 1 },
+    { "id": "assault_rifle", "name": "Assault Rifle", "damageType": "ranged", "baseDamage": 3, "quantity": 1 },
+    { "id": "throwing_knives", "name": "Throwing Knives", "damageType": "ranged", "baseDamage": 2, "quantity": 1 },
+    { "id": "bow", "name": "Bow", "damageType": "ranged", "baseDamage": 2, "quantity": 1 },
+    { "id": "barrett_m82", "name": "Barrett M82", "damageType": "ranged", "baseDamage": 5, "quantity": 1 },
+    { "id": "rocket_launcher", "name": "Rocket Launcher", "damageType": "ranged", "baseDamage": 5, "quantity": 1 }
+  ],
+  "utility": [
+    { "id": "medkit", "name": "Medkit", "quantity": 2 },
+    { "id": "bandage", "name": "Bandage", "quantity": 1 },
+    { "id": "bear_trap", "name": "Bear Trap", "quantity": 3 },
+    { "id": "molotov", "name": "Molotov Cocktail", "quantity": 2 },
+    { "id": "kevlar_vest", "name": "Kevlar Vest", "quantity": 2 },
+    { "id": "chain_mail", "name": "Chain Mail", "quantity": 2 },
+    { "id": "heavy_chestplate", "name": "Heavy Chestplate", "quantity": 1 },
+    { "id": "dynamite", "name": "Dynamite", "quantity": 2 },
+    { "id": "grenade", "name": "Grenade", "quantity": 2 },
+    { "id": "petty_thief", "name": "Petty Thief", "quantity": 2 },
+    { "id": "forgery", "name": "Forgery", "quantity": 1 },
+    { "id": "adrenaline", "name": "Adrenaline", "quantity": 2 },
+    { "id": "poison_dart", "name": "Poison Dart", "quantity": 2 }
+  ],
+  "special": [
+    { "id": "final_spree", "name": "Final Spree", "quantity": 1 },
+    { "id": "healing_wish", "name": "Healing Wish", "quantity": 1 },
+    { "id": "mecha_suit", "name": "Mecha Suit", "quantity": 1 },
+    { "id": "war_elephant", "name": "War Elephant", "quantity": 1 },
+    { "id": "dog_squad", "name": "Dog Squad", "quantity": 1 },
+    { "id": "devils_blessing", "name": "Devil's Blessing", "quantity": 1 },
+    { "id": "mass_panic", "name": "Mass Panic", "quantity": 1 },
+    { "id": "execution_order", "name": "Execution Order", "quantity": 1 }
+  ],
+  "hidden": [
+    { "id": "land_mine", "name": "Land Mine", "quantity": 2 },
+    { "id": "claymore", "name": "Claymore", "quantity": 2 },
+    { "id": "poisonous_apple", "name": "Poisonous Apple", "quantity": 2 },
+    { "id": "protective_bubble", "name": "Protective Bubble", "quantity": 2 },
+    { "id": "magic_mirror", "name": "Magic Mirror", "quantity": 2 },
+    { "id": "spike_trap", "name": "Spike Trap", "quantity": 2 },
+    { "id": "shadow_dodge", "name": "Shadow Dodge", "quantity": 2 },
+    { "id": "counterstrike", "name": "Counterstrike", "quantity": 2 }
+  ]
+}

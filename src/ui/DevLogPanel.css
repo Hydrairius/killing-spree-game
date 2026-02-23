@@ -1,0 +1,112 @@
+.dev-log-panel {
+  position: fixed;
+  bottom: 1rem;
+  left: 1rem;
+  width: 320px;
+  max-height: 220px;
+  background: var(--ks-bg-panel);
+  border: 1px solid var(--ks-neutral-border);
+  border-radius: var(--ks-radius-md);
+  font-family: 'JetBrains Mono', 'Consolas', monospace;
+  font-size: 11px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.dev-log-panel.dev-log-collapsed {
+  max-height: 36px;
+}
+
+.dev-log-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.6rem;
+  background: var(--ks-bg-elevated);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.dev-log-title {
+  font-weight: bold;
+  color: var(--ks-accent-active);
+}
+
+.dev-log-count {
+  font-size: 10px;
+  color: var(--ks-text-muted);
+}
+
+.dev-log-clear {
+  margin-left: auto;
+  padding: 0.2rem 0.5rem;
+  font-size: 10px;
+  background: transparent;
+  border: 1px solid var(--ks-neutral-border);
+  border-radius: 4px;
+  color: var(--ks-text-muted);
+  cursor: pointer;
+}
+
+.dev-log-clear:hover {
+  color: var(--ks-text-primary);
+}
+
+.dev-log-toggle {
+  font-size: 10px;
+  color: var(--ks-text-muted);
+}
+
+.dev-log-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  max-height: 180px;
+}
+
+.dev-log-empty {
+  color: var(--ks-text-muted);
+  font-style: italic;
+  padding: 0.5rem;
+}
+
+.dev-log-entry {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  line-height: 1.3;
+}
+
+.dev-log-entry.dev-log-action,
+.dev-log-entry.dev-log-state,
+.dev-log-entry.dev-log-ai {
+  background: rgba(161,18,18,0.1);
+  border-left: 2px solid var(--ks-accent);
+}
+
+.dev-log-entry.dev-log-warn {
+  background: rgba(200, 140, 0, 0.15);
+  border-left: 2px solid #c88c00;
+}
+
+.dev-log-entry.dev-log-error {
+  background: rgba(180, 40, 40, 0.2);
+  border-left: 2px solid #b42828;
+}
+
+.dev-log-time {
+  flex-shrink: 0;
+  color: var(--ks-text-muted);
+  font-size: 10px;
+}
+
+.dev-log-msg {
+  word-break: break-word;
+  color: var(--ks-text-primary);
+}
